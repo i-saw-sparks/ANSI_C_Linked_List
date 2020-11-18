@@ -159,7 +159,7 @@ int main() {
                             printf("\nType the name of the patient: ");
                             fflush(stdout);
                             fflush(stdin);
-                            fgets(input_name, 50, stdin);
+                            fgets(input_name, 51, stdin);
                             result = search_record_by_name(records, input_name);
                             break;
                         case 'b':
@@ -200,11 +200,47 @@ int main() {
                             aux = aux->next;
                         }
                         break;
-                    case 'b':
+                    case 'b': {
+                        char input_illnes[50];
+                        printf("\nType the illnes: ");
+                        fflush(stdout);
+                        fflush(stdin);
+                        fgets(input_illnes, 51, stdin);
+                        while (aux != 0) {
+                            if (!(aux->item->is_deleted) && equal_illnes(aux->item, input_illnes)) {
+                                print_record(aux->item);
+                                printf("\n");
+                                fflush(stdout);
+                            }
+                            aux = aux->next;
+                        }
+                        }
                         break;
-                    case 'c':
+                    case 'c':{
+                        char input_city[50];
+                        printf("\nType the city: ");
+                        fflush(stdout);
+                        fflush(stdin);
+                        fgets(input_city, 51, stdin);
+                        while (aux != 0) {
+                            if (!(aux->item->is_deleted) && equal_city(aux->item, input_city)) {
+                                print_record(aux->item);
+                                printf("\n");
+                                fflush(stdout);
+                            }
+                            aux = aux->next;
+                        }
+                    }
                         break;
                     case 'd':
+                        while(aux != 0){
+                            if((aux->item->is_deleted)) {
+                                print_record(aux->item);
+                                printf("\n");
+                                fflush(stdout);
+                            }
+                            aux = aux->next;
+                        }
                         break;
                     default:
                         printf("\nInvalid option, try again");
