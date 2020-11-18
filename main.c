@@ -24,6 +24,12 @@ int main() {
 
         switch(menu_option){
             case 1:
+                if(records != 0) {
+                    records = read_from_file(records);
+                }else{
+                    printf("Please create a linked list first");
+                    fflush(stdout);
+                }
                 break;
             case 2:
                 if(records != 0){
@@ -48,31 +54,31 @@ int main() {
                     printf("\n\nType the name of the patient:");
                     fflush(stdout);
                     fflush(stdin);
-                    fgets(input->patient_name, 51, stdin);
+                    gets(input->patient_name);
                     printf("Type gender of the patient (M/F): ");
                     fflush(stdout);
                     fflush(stdin);
-                    fgets(input->gender, 2, stdin);
+                    gets(input->gender);
                     printf("Type the date of admission: ");
                     fflush(stdout);
                     fflush(stdin);
-                    scanf("%i", &(input->admission_date));
+                    gets(input->admission_date);
                     printf("Type the date of birth: ");
                     fflush(stdout);
                     fflush(stdin);
-                    scanf("%i", &(input->birth_date));
+                    gets(input->birth_date);
                     printf("Type the illnes: ");
                     fflush(stdout);
                     fflush(stdin);
-                    fgets(input->illnes, 51, stdin);
+                    gets(input->illnes);
                     printf("Type the addres(City): ");
                     fflush(stdout);
                     fflush(stdin);
-                    fgets(input->city, 51, stdin);
+                    gets(input->city);
                     printf("Type the blood type: ");
                     fflush(stdout);
                     fflush(stdin);
-                    fgets(input->blood_type, 3, stdin);
+                    gets(input->blood_type);
                     fflush(stdin);
                     add_record(records,input);
                 }else{
@@ -103,11 +109,11 @@ int main() {
                     printf("Type the date of admission: ");
                     fflush(stdout);
                     fflush(stdin);
-                    scanf("%i", &(result->admission_date));
+                    fgets(result->admission_date, 9, stdin);
                     printf("Type the date of birth: ");
                     fflush(stdout);
                     fflush(stdin);
-                    scanf("%i", &(result->birth_date));
+                    fgets(result->birth_date, 9, stdin);
                     printf("Type the illnes: ");
                     fflush(stdout);
                     fflush(stdin);
@@ -144,7 +150,7 @@ int main() {
             case 7: {
                     char sub_option = ' ';
                     char input_name[50];
-                    int input_date;
+                    char input_date[50];
                     health_record_t *result = 0;
 
                     printf("\na)Search by name"
@@ -166,7 +172,7 @@ int main() {
                             printf("\nType the date of birth of the patient: ");
                             fflush(stdout);
                             fflush(stdin);
-                            scanf("%i", &input_date);
+                            fgets(input_date, 9, stdin);
                             result = search_record_by_birth(records, input_date);
                             break;
                         default:

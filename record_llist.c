@@ -4,11 +4,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-record_llist_t* new_llist(){
+record_llist_t *new_llist() {
     record_llist_t *list;
-    list = (record_llist_t*)malloc(sizeof(record_llist_t));
+    list = (record_llist_t *) malloc(sizeof(record_llist_t));
 
-    if(list == NULL){
+    if (list == NULL) {
         printf("new_llist(): Insufficient memory");
         fflush(stdout);
         return NULL;
@@ -17,9 +17,9 @@ record_llist_t* new_llist(){
     list->head = 0;
 }
 
-lnode_t* new_node(health_record_t *item) {
+lnode_t *new_node(health_record_t *item) {
     lnode_t *node;
-    node = (lnode_t *) malloc (sizeof (lnode_t));
+    node = (lnode_t *) malloc(sizeof(lnode_t));
 
     if (node == NULL) {
         printf("new_node(): Insufficient memory");
@@ -42,10 +42,10 @@ void add_record(record_llist_t *list, health_record_t *item) {
 }
 
 health_record_t *search_record_by_name(record_llist_t *list, char name[50]) {
-    lnode_t* aux = list->head;
+    lnode_t *aux = list->head;
 
-    while(aux != 0){
-        if(equal_name(aux->item, name)){
+    while (aux != 0) {
+        if (equal_name(aux->item, name)) {
             return aux->item;
         }
 
@@ -55,14 +55,13 @@ health_record_t *search_record_by_name(record_llist_t *list, char name[50]) {
     return NULL;
 }
 
-health_record_t *search_record_by_birth(record_llist_t *list, int32_t birth_date) {
-    lnode_t* aux = list->head;
+health_record_t *search_record_by_birth(record_llist_t *list, char *birth_date) {
+    lnode_t *aux = list->head;
 
-    while(aux != 0){
-        if(aux->item->birth_date == birth_date){
+    while (aux != 0) {
+        if (equal_birthday(aux->item, birth_date)) {
             return aux->item;
         }
-
         aux = aux->next;
     }
 
@@ -70,16 +69,72 @@ health_record_t *search_record_by_birth(record_llist_t *list, int32_t birth_date
 }
 
 void free_llist(record_llist_t *list) {
-    lnode_t* aux = list->head;
-    while(aux->next != 0){
+    lnode_t *aux = list->head;
+    while (aux != 0) {
         list->head = list->head->next;
         free(aux->item);
         free(aux);
         aux = list->head;
     }
-    free(aux->item);
-    free(aux);
-    free(list);
+}
+
+record_llist_t* read_from_file(record_llist_t *self) {
+    FILE *file;
+    int i = 0, cat = 0;
+    char c_inp;
+
+    free_llist(self);
+    self = new_llist();
+
+    file = fopen("patients.txt", "r");
+    if (file) {
+        health_record_t *input = (health_record_t *) malloc(sizeof(health_record_t));
+        while ((c_inp = getc(file)) != EOF) {
+            if (c_inp == '#') {
+                i = 0;
+                cat++;
+            }else if (c_inp == '\n') {
+                add_record(self, input);
+                input = (health_record_t *) malloc(sizeof(health_record_t));
+                cat = 0;
+                i=0;
+            } else {
+                switch (cat) {
+                    case 0:
+                        input->patient_name[i] = c_inp;
+                        break;
+                    case 1:
+                        input->gender[i] = c_inp;
+                        break;
+                    case 2:
+                        input->admission_date[i] = c_inp;
+                        break;
+                    case 3:
+                        input->birth_date[i] = c_inp;
+                        break;
+                    case 4:
+                        input->illnes[i] = c_inp;
+                        break;
+                    case 5:
+                        input->city[i] = c_inp;
+                        break;
+                    case 6:
+                        input->blood_type[i] = c_inp;
+                        break;
+                    default:
+                        fclose(file);
+                        return self;
+                }
+                i++;
+            }
+        }
+        add_record(self, input);
+        fclose(file);
+    } else {
+        printf("\nFile patients.txt not found");
+        fflush(stdout);
+    }
+    return self;
 }
 
 

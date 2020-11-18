@@ -33,34 +33,47 @@ int equal_illnes(health_record_t *self, char arg_illnes[50]) {
     return 1;
 }
 
-void delete_record(health_record_t *item) {
-    item->is_deleted = 1;
+int equal_birthday(health_record_t *self, char arg_birthday[50]) {
+    int i = 0;
+
+    for(i =0 ; i<8; i++){
+        if(self->birth_date[i] != arg_birthday[i]) {
+            return 0;
+        }
+    }
+
+    return 1;
 }
 
 void print_record(health_record_t *item) {
     if(item != 0) {
         printf("\nName: ");
         fflush(stdout);
-        fputs(item->patient_name, stdout);
+        puts(item->patient_name);
         fflush(stdout);
         printf("Gender: ");
-        fputs(item->gender, stdout);
         fflush(stdout);
-        printf("\nDate of admission: %i\n", item->admission_date);
+        puts(item->gender);
         fflush(stdout);
-        printf("Date of birth: %i\n", item->birth_date);
+        printf("Admission date: ");
+        fflush(stdout);
+        puts(item->admission_date);
+        fflush(stdout);
+        printf("Birth date: ");
+        fflush(stdout);
+        puts(item->birth_date);
         fflush(stdout);
         printf("Illnes: ");
         fflush(stdout);
-        fputs(item->illnes, stdout);
+        puts(item->illnes);
         fflush(stdout);
         printf("Address(City): ");
         fflush(stdout);
-        fputs(item->city, stdout);
+        puts(item->city);
         fflush(stdout);
         printf("Blood Type: ");
         fflush(stdout);
-        fputs(item->blood_type, stdout);
+        puts(item->blood_type);
         fflush(stdout);
     }else{
         printf("\nPatient not found");
@@ -75,13 +88,19 @@ void init_record(health_record_t *item) {
         item->illnes[i] = ' ';
         item->city[i] = ' ';
     }
+    for (i = 0; i < 8; ++i) {
+        item->birth_date[i] = ' ';
+        item->admission_date[i]= ' ';
+    }
     item->blood_type[0] = ' ';
     item->blood_type[1] = ' ';
     item->is_deleted = 0;
-    item->birth_date = 0;
-    item->admission_date = 0;
+
     item->gender[0] = ' ';
+    item->gender[1] = ' ';
 }
+
+
 
 
 
