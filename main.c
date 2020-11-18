@@ -26,7 +26,7 @@ int main() {
                 break;
             case 2:
                 if(records != 0){
-                    //free_llist(records);
+                    free_llist(records);
                     records = new_llist();
                 }else {
                     records = new_llist();
@@ -47,11 +47,11 @@ int main() {
                     printf("\n\nType the name of the patient:");
                     fflush(stdout);
                     fflush(stdin);
-                    fgets(input->patient_name, 50, stdin);
-                    printf("Type gender of the patien (M/F): ");
+                    fgets(input->patient_name, 51, stdin);
+                    printf("Type gender of the patient (M/F): ");
                     fflush(stdout);
                     fflush(stdin);
-                    scanf("%c", &(input->gender));
+                    fgets(input->gender, 2, stdin);
                     printf("Type the date of admission: ");
                     fflush(stdout);
                     fflush(stdin);
@@ -63,15 +63,15 @@ int main() {
                     printf("Type the illnes: ");
                     fflush(stdout);
                     fflush(stdin);
-                    fgets(input->illnes, 50, stdin);
+                    fgets(input->illnes, 51, stdin);
                     printf("Type the addres(City): ");
                     fflush(stdout);
                     fflush(stdin);
-                    fgets(input->city, 50, stdin);
+                    fgets(input->city, 51, stdin);
                     printf("Type the blood type: ");
                     fflush(stdout);
                     fflush(stdin);
-                    fgets(input->illnes, 2, stdin);
+                    fgets(input->blood_type, 3, stdin);
                     fflush(stdin);
                     add_record(records,input);
                 }else{
@@ -135,5 +135,5 @@ int main() {
         }
     }while(menu_option != 10);
 
-    //free_llist(records);
+    free_llist(records);
 }

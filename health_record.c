@@ -21,9 +21,10 @@ void print_record(health_record_t *item) {
         fflush(stdout);
         fputs(item->patient_name, stdout);
         fflush(stdout);
-        printf("Gender: %c\n", item->gender);
+        printf("Gender: ");
+        fputs(item->gender, stdout);
         fflush(stdout);
-        printf("Date of admission: %i\n", item->admission_date);
+        printf("\nDate of admission: %i\n", item->admission_date);
         fflush(stdout);
         printf("Date of birth: %i\n", item->birth_date);
         fflush(stdout);
@@ -33,11 +34,11 @@ void print_record(health_record_t *item) {
         fflush(stdout);
         printf("Address(City): ");
         fflush(stdout);
-        puts(item->city);
+        fputs(item->city, stdout);
         fflush(stdout);
         printf("Blood Type: ");
         fflush(stdout);
-        puts(item->blood_type);
+        fputs(item->blood_type, stdout);
         fflush(stdout);
     }else{
         printf("\nPatient not found");
@@ -57,5 +58,5 @@ void init_record(health_record_t *item) {
     item->is_deleted = 0;
     item->birth_date = 0;
     item->admission_date = 0;
-    item->gender = ' ';
+    item->gender[0] = ' ';
 }

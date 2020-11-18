@@ -6,8 +6,7 @@
 #include <stdio.h>
 
 typedef struct health_record{
-    char patient_name[50], illnes[50], city[50], blood_type[2];
-    char gender;
+    char patient_name[50], illnes[50], city[50], blood_type[3], gender[2];
     int admission_date, birth_date;
     int is_deleted;
 }health_record_t;

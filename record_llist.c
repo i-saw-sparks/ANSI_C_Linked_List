@@ -69,6 +69,21 @@ health_record_t *search_record_by_birth(record_llist_t *list, int32_t birth_date
     return NULL;
 }
 
+void free_llist(record_llist_t *list) {
+    lnode_t* aux = list->head;
+    while(aux->next != 0){
+        list->head = list->head->next;
+        free(aux->item);
+        free(aux);
+        aux = list->head;
+    }
+    free(aux->item);
+    free(aux);
+    free(list);
+}
+
+
+
 
 
 
