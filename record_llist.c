@@ -177,6 +177,39 @@ void export_rcontainer_to_xml(record_llist_t *self) {
     fclose(xml);
 }
 
+void save_to_file(record_llist_t *self) {
+    FILE *txt;
+    txt = fopen("patients.txt", "w");
+    lnode_t* aux = self->head;
+
+    if(txt == 0){
+        printf("\nsave_to_file Error");
+        fflush(stdout);
+        return;
+    }
+
+    while(aux != 0) {
+        fputs(aux->item->patient_name, txt);
+        fputs("#", txt);
+        fputs(aux->item->gender, txt);
+        fputs("#", txt);
+        fputs(aux->item->admission_date, txt);
+        fputs("#", txt);
+        fputs(aux->item->birth_date, txt);
+        fputs("#", txt);
+        fputs(aux->item->illnes, txt);
+        fputs("#", txt);
+        fputs(aux->item->city, txt);
+        fputs("#", txt);
+        fputs(aux->item->blood_type, txt);
+        if(aux->next != 0) {
+            fputs("\n", txt);
+        }
+        aux = aux->next;
+    }
+    fclose(txt);
+}
+
 
 
 

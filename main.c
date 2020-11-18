@@ -264,6 +264,7 @@ int main() {
                 }
                 break;
             case 10:
+                save_to_file(records);
                 printf("Ending the execution...");
                 fflush(stdout);
                 break;
