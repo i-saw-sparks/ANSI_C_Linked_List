@@ -137,6 +137,46 @@ record_llist_t* read_from_file(record_llist_t *self) {
     return self;
 }
 
+void export_rcontainer_to_xml(record_llist_t *self) {
+    FILE *xml;
+    xml = fopen("Report.xml", "w");
+    lnode_t* aux = self->head;
+
+    if(xml == 0){
+        printf("\nexport_rcontainer_to_xml Error");
+        fflush(stdout);
+        return;
+    }
+
+    while(aux != 0) {
+        fputs("<patient>\n", xml);
+        fputs("\t<name>", xml);
+        fputs(aux->item->patient_name, xml);
+        fputs("</name>\n", xml);
+        fputs("\t<gender>", xml);
+        fputs(aux->item->gender, xml);
+        fputs("</gender>\n", xml);
+        fputs("\t<admissionDate value=\"", xml);
+        fputs(aux->item->admission_date, xml);
+        fputs("\" />\n", xml);
+        fputs("\t<birthDate value=\"", xml);
+        fputs(aux->item->birth_date, xml);
+        fputs("\" />\n", xml);
+        fputs("\t<diagnosis>", xml);
+        fputs(aux->item->illnes, xml);
+        fputs("</diagnosis>\n", xml);
+        fputs("\t<city>", xml);
+        fputs(aux->item->city, xml);
+        fputs("</city>\n", xml);
+        fputs("\t<bloodType>", xml);
+        fputs(aux->item->blood_type, xml);
+        fputs("</bloodType>\n", xml);
+        fputs("</patient>\n", xml);
+        aux = aux->next;
+    }
+    fclose(xml);
+}
+
 
 
 

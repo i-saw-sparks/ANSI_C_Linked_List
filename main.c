@@ -256,6 +256,12 @@ int main() {
             }
                 break;
             case 9:
+                if(records != 0) {
+                    export_rcontainer_to_xml(records);
+                }else{
+                    printf("Please create a linked list first");
+                    fflush(stdout);
+                }
                 break;
             case 10:
                 printf("Ending the execution...");
