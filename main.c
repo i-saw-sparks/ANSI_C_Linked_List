@@ -79,7 +79,50 @@ int main() {
                     fflush(stdout);
                 }
                 break;
-            case 5:
+            case 5: {
+                health_record_t *result = 0;
+                char input_name[50];
+                printf("\n\nType the name of the patient you want to update:");
+                fflush(stdout);
+                fflush(stdin);
+                fgets(input_name, 50, stdin);
+                result = search_record_by_name(records, input_name);
+
+                if(result == 0){
+                    printf("\n\nPatient not found");
+                }else{
+                    printf("\n\nType the name of the patient:");
+                    fflush(stdout);
+                    fflush(stdin);
+                    fgets(result->patient_name, 51, stdin);
+                    printf("Type gender of the patient (M/F): ");
+                    fflush(stdout);
+                    fflush(stdin);
+                    fgets(result->gender, 2, stdin);
+                    printf("Type the date of admission: ");
+                    fflush(stdout);
+                    fflush(stdin);
+                    scanf("%i", &(result->admission_date));
+                    printf("Type the date of birth: ");
+                    fflush(stdout);
+                    fflush(stdin);
+                    scanf("%i", &(result->birth_date));
+                    printf("Type the illnes: ");
+                    fflush(stdout);
+                    fflush(stdin);
+                    fgets(result->illnes, 51, stdin);
+                    printf("Type the addres(City): ");
+                    fflush(stdout);
+                    fflush(stdin);
+                    fgets(result->city, 51, stdin);
+                    printf("Type the blood type: ");
+                    fflush(stdout);
+                    fflush(stdin);
+                    fgets(result->blood_type, 3, stdin);
+                    fflush(stdin);
+                }
+
+                }
                 break;
             case 6:
                 break;
@@ -135,5 +178,7 @@ int main() {
         }
     }while(menu_option != 10);
 
-    free_llist(records);
+    if(records != 0) {
+        free_llist(records);
+    }
 }
