@@ -10,6 +10,7 @@ record_llist_t* new_llist(){
 
     if(list == NULL){
         printf("new_llist(): Insufficient memory");
+        fflush(stdout);
         return NULL;
     }
     list->size = 0;
@@ -22,6 +23,7 @@ lnode_t* new_node(health_record_t *item) {
 
     if (node == NULL) {
         printf("new_node(): Insufficient memory");
+        fflush(stdout);
         return NULL;
     }
 
@@ -46,15 +48,29 @@ health_record_t *search_record_by_name(record_llist_t *list, char name[50]) {
         if(equal_name(aux->item, name)){
             return aux->item;
         }
+
+        aux = aux->next;
+    }
+
+    return NULL;
+}
+
+health_record_t *search_record_by_birth(record_llist_t *list, int32_t birth_date) {
+    lnode_t* aux = list->head;
+
+    while(aux != 0){
+        if(aux->item->birth_date == birth_date){
+            return aux->item;
+        }
+
+        aux = aux->next;
     }
 
     return NULL;
 }
 
 
-void delete_record(health_record_t *item) {
-    item->is_deleted = 1;
-}
+
 
 
 
