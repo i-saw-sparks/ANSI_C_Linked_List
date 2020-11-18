@@ -12,9 +12,9 @@ typedef struct health_record{
 }health_record_t;
 
 void init_record(health_record_t*);
-void update_record(health_record_t*);
-void delete_record(health_record_t*);
 int equal_name(health_record_t*, char[]);
+int equal_city(health_record_t*, char[]);
+int equal_illnes(health_record_t*, char[]);
 void print_record(health_record_t*);
 
 

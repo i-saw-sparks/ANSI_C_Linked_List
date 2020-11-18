@@ -2,8 +2,30 @@
 
 int equal_name(health_record_t *self, char arg_name[50]) {
     int i = 0;
-    while(self->patient_name[i] != '\n'){
+    while(self->patient_name[i] != '\n' && arg_name[i] != '\n'){
         if(self->patient_name[i] != arg_name[i]) {
+            return 0;
+        }
+        i++;
+    }
+    return 1;
+}
+
+int equal_city(health_record_t *self, char arg_city[50]) {
+    int i = 0;
+    while(self->city[i] != '\n' && arg_city[i] != '\n'){
+        if(self->city[i] != arg_city[i]) {
+            return 0;
+        }
+        i++;
+    }
+    return 1;
+}
+
+int equal_illnes(health_record_t *self, char arg_illnes[50]) {
+    int i = 0;
+    while(self->illnes[i] != '\n' && arg_illnes[i] != '\n'){
+        if(self->illnes[i] != arg_illnes[i]) {
             return 0;
         }
         i++;
@@ -60,3 +82,7 @@ void init_record(health_record_t *item) {
     item->admission_date = 0;
     item->gender[0] = ' ';
 }
+
+
+
+

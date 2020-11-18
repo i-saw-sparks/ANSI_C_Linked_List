@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "record_llist.h"
 
+
 int main() {
     int menu_option = 0;
     record_llist_t* records = 0;
@@ -121,10 +122,24 @@ int main() {
                     fgets(result->blood_type, 3, stdin);
                     fflush(stdin);
                 }
-
                 }
                 break;
-            case 6:
+            case 6:{
+                health_record_t *result = 0;
+                char input_name[50];
+                printf("\n\nType the name of the patient you want to update:");
+                fflush(stdout);
+                fflush(stdin);
+                fgets(input_name, 50, stdin);
+                result = search_record_by_name(records, input_name);
+
+                if(result == 0){
+                    printf("\n\nPatient not found");
+                }else {
+                    printf("\n\nPatient deleted");
+                    result->is_deleted = 1;
+                }
+            }
                 break;
             case 7: {
                     char sub_option = ' ';
@@ -135,7 +150,7 @@ int main() {
                     printf("\na)Search by name"
                            "\nb)Search by date of birth"
                            "\nType an option: ");
-                fflush(stdout);
+                    fflush(stdout);
                     fflush(stdin);
                     scanf("%c", &sub_option);
 
@@ -162,14 +177,47 @@ int main() {
                     print_record(result);
                 }
                 break;
-            case 8:
+            case 8:{
+                char sub_option;
+                lnode_t* aux=records->head;
+                printf("a)list all patients\n"
+                       "b)list patients by illnes\n"
+                       "c)list patients by city\n"
+                       "d)discharged\n"
+                       "Type your option: ");
+                fflush(stdout);
+                fflush(stdin);
+                scanf("%c", &sub_option);
+
+                switch(sub_option){
+                    case 'a':
+                        while(aux != 0){
+                            if(!(aux->item->is_deleted)) {
+                                print_record(aux->item);
+                                printf("\n");
+                                fflush(stdout);
+                            }
+                            aux = aux->next;
+                        }
+                        break;
+                    case 'b':
+                        break;
+                    case 'c':
+                        break;
+                    case 'd':
+                        break;
+                    default:
+                        printf("\nInvalid option, try again");
+                        fflush(stdout);
+                        break;
+                }
+            }
                 break;
             case 9:
                 break;
             case 10:
                 printf("Ending the execution...");
                 fflush(stdout);
-                //todo free
                 break;
             default:
                 printf("\nInvalid option, please try again");
@@ -182,3 +230,4 @@ int main() {
         free_llist(records);
     }
 }
+
